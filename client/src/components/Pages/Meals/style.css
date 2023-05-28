@@ -1,0 +1,204 @@
+*{
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+.all{
+    background-color: rgb(248, 248, 248);
+
+}
+.body{
+    background-color: rgb(248, 248, 248);
+
+}
+
+.title{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    padding-top: 40px;
+
+}
+.therow{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top:50px;
+}
+
+.cards{
+    background-color: #fff;
+    border-radius: 15px;
+    width: 200px;
+    overflow: hidden;
+}
+.cards:hover{
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+
+.title-card {
+    text-align: center;
+    padding: 10px;
+    background-color: rgb(85, 85, 85);
+    color: #fff;
+    
+}
+.list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.li{
+    text-align: center;
+    font-size: 19px ;
+}
+button {
+    appearance: none;
+    background-color: transparent;
+    border: 0.125em solid #1A1A1A;
+    border-radius: 0.9375em;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    min-height: 3.75em;
+    min-width: 0;
+    outline: none;
+    padding: 1em 2.3em;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: transform;
+
+   }
+   
+   button:disabled {
+    pointer-events: none;
+   }
+   
+   button:hover {
+    color: #fff;
+    background-color: rgb(85, 85, 85);
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+   }
+   
+   button:active {
+    box-shadow: none;
+    transform: translateY(0);
+   }
+   .div-button{
+    text-align: center;
+    padding: 10px;
+    background-color: rgb(248, 248, 248);
+    color: #fff;
+    margin-top: 60px;
+
+
+   }
+.principal {
+    background-color: #ffffff;
+}
+
+.buttonn {
+    appearance: none;
+    background-color: transparent;
+    border: 0.125em solid #1A1A1A;
+    border-radius: 0.9375em;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    min-height: 3.75em;
+    min-width: 0;
+    outline: none;
+    padding: 1em 2.3em;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: transform;
+
+   }
+   
+   button:disabled {
+    pointer-events: none;
+   }
+   
+   button:hover {
+    color: #fff;
+    background-color: rgb(85, 85, 85);
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+   }
+   
+   button:active {
+    box-shadow: none;
+    transform: translateY(0);
+   }
+   .div-button{
+    text-align: center;
+    padding: 10px;
+    background-color: rgb(248, 248, 248);
+    color: #fff;
+    margin-top: 60px;
+
+
+   }
+   
+   /* style.css */
+.tableau {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  
+  .tableau th,
+  .tableau td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .tableau thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+  
+  .tableau tbody + tbody {
+    border-top: 2px solid #dee2e6;
+  }
+  
+  .tableau-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-responsive-lg {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  

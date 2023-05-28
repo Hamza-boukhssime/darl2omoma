@@ -1,0 +1,174 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap'); */
+
+@font-face {
+  font-family: 'Cairo';
+  src: local('Cairo'), url(../public/fonts/Cairo/Cairo-VariableFont_slnt\,wght.ttf) format('truetype');
+
+}
+:root{
+  --main-background :#202939;
+  --card-background:#202939;
+}
+*{
+  font-family: Cairo, sans-serif;
+}
+body{
+  overflow-x: hidden;
+}
+
+.form-control:focus{
+  border: 1px solid rgb(79, 249, 0);
+}
+
+/* Side Bar  */
+.sidebar{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  height:100vh;
+  background: var(--main-background);
+}
+.sidebar ul{
+  list-style: none;
+  padding: 0;
+}
+.sidebar a{
+  text-decoration: none;
+  color: white;
+}
+.sidebar a:hover{
+  color: rgb(252, 195, 24);
+}
+.activelink{
+  background-color: white;
+  color: black;
+}
+
+/* Dashbord  */
+.card1{
+  height:150px; 
+  background: var(--card-background);
+}
+.card1 h2{
+  font-size: 4rem;
+}
+
+.content{
+  height: 100vh;
+  background-color: #F8F9FA;
+}
+
+
+
+
+.height{
+  height: 100vh;
+ }
+
+.search{
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+    
+  }
+
+  .search input{
+
+   height: 60px;
+   text-indent: 25px;
+   border: 2px solid #d6d4d4;
+
+
+  }
+
+
+  .search input:focus{
+
+   box-shadow: none;
+   border: 2px solid blue;
+
+
+  }
+
+  .search .fa-search{
+
+   position: absolute;
+   top: 20px;
+   left: 16px;
+
+  }
+
+  .search button{
+
+   position: absolute;
+   top: 5px;
+   left: 5px;
+   height: 50px;
+   width: 110px;
+   background: blue;
+
+  }
+
+  /* Print  */
+
+.print {
+  min-height: 100vh;
+  
+}
+.print label{
+
+  color: #e3a405;
+}
+.print .row{
+  align-items: baseline;
+  font-size: 18px;
+}
+.bprint{
+  position: fixed;
+  top: 50%;
+  left:5%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: 150%;
+  background-color: var(--main-background);
+  color: white;
+}
+.bprint:hover{
+  color: #e3a405;
+  cursor: pointer;
+  background-color: var(--main-background);
+}
+
+
+
+@media print {
+  .print{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .sidebar, .bprint{
+    display: none;
+  }
+
+  .content{
+    margin-left: 0;
+  }
+  .print{
+    display: block;
+  }
+  .print .row{
+    align-items: baseline;
+    font-size: 12px;
+  }
+
+
+
+}
+
+.meals-table {
+  height: 600px; /* Adjust the height as needed */
+}
