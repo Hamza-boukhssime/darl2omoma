@@ -51,16 +51,6 @@ function Sidebar() {
                             
                             </li>
                         </Link>
-                        <Link to='/raport' >
-                            <li className='fs-4 pe-3 my-4 py-2'>
-                                <FontAwesomeIcon 
-                                    icon={faChartPie} 
-                                    className='fs-3 ms-3'
-                                    />
-                                التقارير
-                            
-                            </li>
-                        </Link>
                         <Link to='/meals' >
                             <li 
                                 className='fs-4 pe-3 my-4 py-2 '>

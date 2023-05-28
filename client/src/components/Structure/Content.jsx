@@ -10,12 +10,14 @@ import Meals from "../Pages/Meals/Meals"
 import Print from '../Pages/Prints/Print'
 import PrintBaby from '../Pages/Prints/PrintBaby'
 import PrintSpecial from '../Pages/Prints/PrintSpecial'
-import Stock from '../Pages/Stock'
 import EditPage from '../Partials/EditPage'
 import PregnantEdit from '../Pages/Edits/PregnantEdit'
 import WithBabyEdit from '../Pages/Edits/WithBabyEdit'
 import SpecialVisitEdit from '../Pages/Edits/SpecialVisitEdit'
 import MealsEdit from "../Pages/Meals/MealsEdit"
+import Stock from '../../Stock/Stock'
+import StockForm from '../../Stock/StockForm'
+import StockFormUpdate from '../../Stock/StockFormUpdate'
 function Content() {
   return (
     <div className='col-md-10 p-0 m-0 bg-light ' >
@@ -35,6 +37,9 @@ function Content() {
         <Route path="/edit/withbaby/:id" element={<WithBabyEdit />} />
         <Route path="/edit/specialvisit/:id" element={<SpecialVisitEdit />} />
         <Route path='/meals/edit' element={<MealsEdit/>} />
+        <Route path='/stock' element={<Stock />} />
+        <Route path='/stock/form' element={<StockForm />} />
+        <Route path='/stock/detail/:id' element={<StockFormUpdate />} />
 
       </Routes>
     </div>

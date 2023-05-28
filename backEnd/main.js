@@ -107,7 +107,7 @@ app.post('/add/baby', (req,res)=>{
 // Cards 
 app.get('/data/:name',(req,res)=>{
     const name = req.params.name;
-    const q = `select * from ${name}` 
+    const q = `select * from ${name} where Valide=1` 
     db.query(q, (err, data)=>{
         if(err) return res.send(err)
         return res.send(data)
@@ -128,11 +128,11 @@ app.get('/print/:name',(req,res)=>{
 
 
 app.get('/api/test', (req,res)=>{
-    const sql = `select id, firstName,cin,raison,academicLevel,dateCheckIn from pregnant
+    const sql = `select id, firstName,cin,raison,academicLevel,dateCheckIn from pregnant where Valide=1
                     union
-                 SELECT id, firstName,cin,raison,academicLevel,dateCheckIn FROM specialvisit
+                 SELECT id, firstName,cin,raison,academicLevel,dateCheckIn FROM specialvisit where Valide=1
                     union
-                 SELECT id, firstName,cin,raison,academicLevel,dateCheckIn FROM withbaby
+                 SELECT id, firstName,cin,raison,academicLevel,dateCheckIn FROM withbaby where Valide=1
                  order by dateCheckIn desc`;
     db.query(sql, (error, results) => {
       if (error) ;
@@ -211,44 +211,7 @@ app.put('/meals/:id', async (req, res) => {
       res.status(500).send('Error updating meal');
     }
   });
-  
-  app.listen(5000, () => {
-    console.log('Connected to backend');
-  });
-  
 
-// // edit
-// // Retrieve patient data based on ID and reason
-// app.get('/patients/:reason/:id', (req, res) => {
-//   const { reason, id } = req.params;
-//   let tableName;
-
-//   if (reason === 'pregnant') {
-//     tableName = 'pregnant';
-//   } else if (reason === 'specialvisit') {
-//     tableName = 'specialvisit';
-//   } else if (reason === 'baby') {
-//     tableName = 'withbaby';
-//   } else {
-//     return res.status(400).json({ error: 'Invalid reason' });
-//   }
-
-//   const q = `SELECT * FROM ${tableName} WHERE id = ?`;
-
-//   db.query(q, [id], (err, data) => {
-//     if (err) {
-//       return res.status(500).json({ error: 'Failed to retrieve patient data' });
-//     }
-
-//     if (data.length === 0) {
-//       return res.status(404).json({ error: 'Patient not found' });
-//     }
-
-//     res.json(data[0]);
-//   });
-// });
-
-// // Rest of your existing code...
 
 
 app.post('/edit/pregnant/:id', (req, res) => {
@@ -285,13 +248,9 @@ app.post('/edit/pregnant/:id', (req, res) => {
   });
 });
 // Delete
-app.delete('/delete/:reason/:id', (req, res) => {
+app.post('/delete/:reason/:id', (req, res) => {
   const { reason, id } = req.params;
-  console.log(reason)  
-
- 
-
-  const q = `DELETE FROM ${reason} WHERE id = ?`;
+  const q = `Update ${reason} set Valide=0 WHERE id = ?`;
 
   db.query(q, [id], (err, result) => {
     if (err) {
@@ -302,4 +261,76 @@ app.delete('/delete/:reason/:id', (req, res) => {
     // Return a success response or any relevant data
     res.json({ message: 'Patient deleted successfully' });
   });
+});
+
+//add stock
+app.post('/add/stock', (req, res) => {
+  const {
+      designation,
+      dateEntree,
+      quantiteEntree,
+      quantiteSortie,
+      datePeremption
+  } = req.body
+
+
+  const q = `
+      insert into stock(id, designation, date_entree, quantite_entree, quantite_sortie, date_peremption) VALUES (null,?,?,?,?,?)
+  `
+  db.query(q, [designation,
+      dateEntree,
+      quantiteEntree,
+      quantiteSortie,
+      datePeremption
+  ], (err, data) => {
+      if (err) return res.send(err)
+      return res.send(data)
+  })
+})
+//update stock
+app.put('/update/stock', (req, res) => {
+  const {
+      id,
+      designation,
+      dateEntree,
+      quantiteEntree,
+      quantiteSortie,
+      datePeremption
+  } = req.body
+  const q = `
+      update stock set designation=?, date_entree=?, quantite_entree=?, quantite_sortie=?, date_peremption=? where id=?
+  `
+  db.query(q, [designation,
+      dateEntree,
+      quantiteEntree,
+      quantiteSortie,
+      datePeremption,
+      id
+  ], (err, data) => {
+      if (err) return res.send(err)
+      return res.send(data)
+  })
+})
+//get stock data
+app.get('/list/stock', (req, res) => {
+  const sql = `select * from stock`
+  db.query(sql, (error, results) => {
+      if (error);
+      res.send(results);
+  });
+})
+//get stock data
+app.get('/stock/:id', (req, res) => {
+  const id = req.params.id
+  const sql = `select * from stock where id=${id}    `
+  db.query(sql, (error, results) => {
+      if (error);
+      res.send(results);
+  });
+})
+
+
+  
+app.listen(5000, () => {
+  console.log('Connected to backend');
 });

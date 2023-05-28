@@ -38,7 +38,7 @@ function Meals() {
   };
 
   return (
-    <div className="all">
+    <div className="all" >
       <h1 className="title">{currentDay}</h1>
 
 
@@ -113,7 +113,7 @@ function Meals() {
       
      <div className='div-button'>
      <Link to="/meals/edit">
-      <button className='button' style={{padding:10}}> Edit meals</button>
+      <button className='button-meals' style={{padding:10}}> تعديل الوجبات</button>
       </Link>
      </div>
 

@@ -5,6 +5,7 @@
 
 .all{
     background-color: rgb(248, 248, 248);
+    height: 100vh;
 
 }
 .body{
@@ -52,7 +53,7 @@
     text-align: center;
     font-size: 19px ;
 }
-button {
+.button-meals {
     appearance: none;
     background-color: transparent;
     border: 0.125em solid #1A1A1A;
@@ -80,18 +81,18 @@ button {
 
    }
    
-   button:disabled {
+   .button-meals:disabled {
     pointer-events: none;
    }
    
-   button:hover {
+   .button-meals:hover {
     color: #fff;
     background-color: rgb(85, 85, 85);
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-2px);
    }
    
-   button:active {
+   .button-meals:active {
     box-shadow: none;
     transform: translateY(0);
    }
@@ -136,18 +137,18 @@ button {
 
    }
    
-   button:disabled {
+   .buttonn:disabled {
     pointer-events: none;
    }
    
-   button:hover {
+   .buttonn:hover {
     color: #fff;
     background-color: rgb(85, 85, 85);
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-2px);
    }
    
-   button:active {
+   .buttonn:active {
     box-shadow: none;
     transform: translateY(0);
    }
