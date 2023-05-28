@@ -142,7 +142,20 @@ body{
   background-color: var(--main-background);
 }
 
-
+.stock-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+.table-container{
+  height: 80%;
+}
+.stock-table{
+  max-height: 100%;
+  overflow-y: auto;
+}
 
 @media print {
   .print{

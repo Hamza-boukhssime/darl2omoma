@@ -34,7 +34,6 @@ function Table() {
     }
   }
   const handleDelete = (reason, id) => {
-    console.log(reason)
     var re = ""
     if (reason === 'الحمل') {
       re="pregnant";
@@ -47,9 +46,10 @@ function Table() {
     const url = `http://localhost:5000/delete/${re}/${id}`;
   
     axios
-      .delete(url)
+      .post(url)
       .then(response => {
-        console.log('Patient deleted successfully');
+        window.location.reload();
+
         // Handle success response here
       })
       .catch(error => {
