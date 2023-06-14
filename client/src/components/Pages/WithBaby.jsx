@@ -40,12 +40,11 @@ function WithBaby() {
     }
   return (
     <div>
-        {console.log(pData)}
       <h1 className='py-3 text-center fs-3 text-black fw-bold' style={{background:'#FFFFFF',   borderBottom: '1px solid #e2e2e2'}}>
             إستمارة النزيلة في حالة مرافقة الطفل
         </h1>
 
-        <form method="POST" className='my-5 container px-4 ' onSubmit={handleCreate} >
+        <form method="POST" className='my-5 container px-4 ' onSubmit={handleCreate} encType='multipart/form-data'>
             <CheckInOut title='تاريخ الدخول' onChange={handleChanges} date='dateCheckIn' time='timeCheckIn' />
             <div className='my-3'>
                 <div className="row my-3">
@@ -55,13 +54,19 @@ function WithBaby() {
                     </div>
                 </div>
             </div>
-            <PersonInfo title='هوية المرافقة'
+            <PersonInfo 
+                title='هوية المرافقة'
                  label={'المدة المحتملة للإقامة'} 
                  type={'text'}
                  name={'possibleDaysToStay'}
-                 onChange={handleChanges} />
-
+                 onChange={handleChanges} 
+                />
+                <div class="my-3">
+                    <label for="formFile" className="col-form-label fw-bold ">ارفع صورة البطاقة الوطنية</label>
+                    <input onChange={handleChanges} className="border-primary rounded form-control " type="file" name="cinImag" accept=".png,.jpg,.tiff" lang="ar"/>
+                </div>
             <StudyLevel onChange={handleChanges} />
+
             <BabyInfo onChange={handleChanges} />
 
 
@@ -69,7 +74,6 @@ function WithBaby() {
             <Transport onChange={handleChanges} />
             <DecisionToCome onChange={handleChanges} />
             <WhoAdvice onChange={handleChanges} />
-            <Accompany onChange={handleChanges} />
             <MedicalCheck onChange={handleChanges} />
             <ReturnToCenter onChange={handleChanges} />       
             <CheckInOut onChange={handleChanges} title='الخروج' date='dateCheckOut' time='timeCheckOut' />

@@ -11,10 +11,6 @@ function DecisionToCome({onChange}) {
             value:'الزوج'
         },
         {
-            label: 'الزوج',
-            value:'الزوج'
-        },
-        {
             label: 'مولدة تقليدية',
             value:'مولدة تقليدية'
         },

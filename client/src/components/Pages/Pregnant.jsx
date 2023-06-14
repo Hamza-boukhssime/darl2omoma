@@ -61,37 +61,41 @@ function Pregnant() {
             إستمارة النزيلة في حالة الحمل
         </h1>
 
-        <form method="POST" className='my-5 container px-4 ' >
+        <form method="POST" className='my-5 container px-4 ' encType='multipart/form-data'>
 
             <CheckInOut title='تاريخ الدخول' onChange={handleChanges} date='dateCheckIn' time='timeCheckIn' />
             
             <div className='my-3'>
                 <h3 className="fs-2 text-secondary" >حالة الحمل</h3>
                 <div className="row my-3">
+                    <label className="col-md-3 form-label fw-bold text-end" >قبل الوضع </label>
                     <div className="col-md-3 text-start ">
-                        <input className="bg-primary" onChange={handleChanges}  type="radio" name="GivngBirthStatu" value='قبل الوضع جيدة' />
+                        <input className="border-primary form-control " onChange={handleChanges}  type="text" name="GivngBirthStatuBefore"  />
                     </div>
-                    <label className="col-md-3 form-label fw-bold text-end" >قبل الوضع جيدة</label>
+                    
+                    <label className="col-md-3 text-end fw-bold" >بعد الوضع </label>
                     <div className="col-md-3 text-start ">
-                        <input onChange={handleChanges}  type="radio" name="GivngBirthStatu" value='بعد الوضع جيدة' />
+                        <input onChange={handleChanges} className="border-primary rounded form-control "  type="text" name="GivngBirthStatuAfter" />
                     </div>
-                    <label className="col-md-3 text-end fw-bold" >بعد الوضع جيدة</label>
 
                 </div>
                 
             </div>
 
             <PersonInfo 
-                
                 title='هوية المرأة' 
                 father=''
                 type={'date'} 
                 label={'التاريخ المحتمل للوضع'}
                 name={'possibleDayBirth'}
+                display={1}
                 onChange={handleChanges} 
                 pData={pData}
-                />
-                
+            />
+            <div class="my-3">
+                <label for="formFile" className="col-form-label fw-bold ">ارفع صورة البطاقة الوطنية</label>
+                <input onChange={handleChanges} className="border-primary rounded form-control " type="file" name="cinImag" accept=".png,.jpg,.tiff" lang="ar"/>
+            </div>
             <div className='my-3'>
                 <h3 className="fs-2 text-secondary">عدد الولادات </h3>
                 <div className="my-3 row">
@@ -108,10 +112,10 @@ function Pregnant() {
             </div>
 
             {/* Study Level  */}
-            <StudyLevel onChange={handleChanges} />
+            <StudyLevel onChange={handleChanges}  />
 
             {/* Husband  */}
-            <Husband onChange={handleChanges} />
+            <Husband onChange={handleChanges} Husband='اسم الزوج' job='مهنة الزوج' />
 
             {/* Transport  */}
 

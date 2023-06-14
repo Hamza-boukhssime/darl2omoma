@@ -27,7 +27,7 @@ function PrintSpecial() {
           data.map((item,i)=>(
             <div key={i}>
               <div className="row  ">
-                  <label className="col-2 col-form-label fw-bold">التاريخ</label>
+                  <label className="col-2 col-form-label fw-bold">تاريخ الدخول</label>
                   <div className="col-4">
                       <p className="fw-bold">{moment(item.dateCheckIn).utc().add(1, 'days').format("YYYY-MM-DD")}</p>
                   </div>
@@ -56,10 +56,6 @@ function PrintSpecial() {
                   </div>
               </div>
               <div className="row">
-                  <label className="col-2 col-form-label fw-bold">تاريخ الإزدياد</label>
-                  <div className="col-4">
-                      <p className="fw-bold">{moment(item.birthDay).utc().add(1, 'days').format("YYYY-MM-DD")}</p>
-                  </div>
                   <label className="col-2 col-form-label fw-bold">السن</label>
                   <div className="col-4">
                       <p className="fw-bold">{item.age}</p>
@@ -114,22 +110,23 @@ function PrintSpecial() {
                     <div className="col-4">
                         <p className="fw-bold">{item.road}  كلم</p>
                     </div>
-              <label className="col-2 col-form-label fw-bold"> طريق معبدة</label>
+              <label className="col-2 col-form-label fw-bold">مسلك</label>
                     <div className="col-4">
                         <p className="fw-bold">{item.passage}  كلم</p>
                     </div>
-              <label className="col-4 col-form-label fw-bold">الشخص الذي قام بتوجيه المرأة إلى دار الأمومة</label>
+                    <label className="col-4 col-form-label fw-bold">قرار المجيء إلى دار الأمومة</label>
+                    <div className="col-8">
+                        <p className="fw-bold">{item.decisionToCome}</p>
+                    </div>
+              <label className="col-8 col-form-label fw-bold">الشخص الذي قام بتوجيه المرأة إلى دار الأمومة</label>
                     <div className="col-4">
                         <p className="fw-bold">{item.whoAdviceToCome}</p>
                     </div>
-              <label className="col-4 col-form-label fw-bold">قرار المجيء إلى دار الأمومة</label>
-                    <div className="col-4">
-                        <p className="fw-bold">{item.decisionToCome}</p>
-                    </div>
+             
               </div>
               <div className="row">
-              <label className="col-2 col-form-label fw-bold">الشخص المرافق</label>
-                    <div className="col-4">
+              <label className="col-4 col-form-label fw-bold">الشخص المرافق</label>
+                    <div className="col-6">
                         <p className="fw-bold">{item.accompany}</p>
                     </div>
               </div>
@@ -140,12 +137,12 @@ function PrintSpecial() {
                     </div>
               </div>
               <div className="row">
-                <label className="col-4 col-form-label fw-bold">الرجوع إلى دار الأمومة بعد الوضع</label>
+                <label className="col-4 col-form-label fw-bold">الرجوع إلى دار الأمومة بعد الفحص</label>
                 <label className="col-2 col-form-label fw-bold">التاريخ</label>
                 <div className="col-2">
                             <p className="fw-bold">{moment(item.dateBack).utc().add(1, 'days').format("YYYY-MM-DD")}</p>
                         </div>
-                <label className="col-2 col-form-label fw-bold">التاريخ</label>
+                <label className="col-2 col-form-label fw-bold">الساعة</label>
                 <div className="col-2">
                             <p className="fw-bold">{moment(item.timeBack, 'HH:mm:ss').format('HH:mm')}</p>
                         </div>
@@ -156,7 +153,7 @@ function PrintSpecial() {
                 <div className="col-2">
                             <p className="fw-bold">{moment(item.dateCheckOut).utc().add(1, 'days').format("YYYY-MM-DD")}</p>
                         </div>
-                <label className="col-2 col-form-label fw-bold">التاريخ</label>
+                <label className="col-2 col-form-label fw-bold">الساعة</label>
                 <div className="col-2">
                             <p className="fw-bold">{moment(item.timeCheckOut, 'HH:mm:ss').format('HH:mm')}</p>
                         </div>
@@ -164,15 +161,13 @@ function PrintSpecial() {
               <div className="row">
               <label className="col-2 col-form-label fw-bold">مدة الإقامة</label>
                     <div className="col-4">
-                        <p className="fw-bold">{item.DurationOfStay}</p>
+                        <p className="fw-bold">{item.DurationOfStay} يوم</p>
                     </div>
               </div>
 
               <div className="row my-3 mx-auto">
-                <p className="col-4">الإمضاء عند الدخول: </p>
-                <div className="col-2"></div>
-                <p className="col-4">الإمضاء عند  الخروج: </p>
-                <div className="col-2"></div>
+                <p className="col-12 text-center">الإمضاء : </p>
+                
               </div>
             
 

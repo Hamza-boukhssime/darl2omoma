@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import {AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
+import {AiOutlineEdit, AiFillGold,AiOutlineContainer } from 'react-icons/ai'
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
@@ -50,8 +50,14 @@ const StockTable = () => {
               <td className={isWithinOneMonth? "bg-warning text-white":""} >{moment(item.date_peremption).utc().add(1, 'days').format("YYYY-MM-DD")}</td>              
               <td className={isOutOfStock? "bg-danger text-white":""}>{item.disponible}</td>
               <td className="text-center">
-                <span className="text-primary mx-2" onClick={()=>navigate(`/stock/detail/${item.id}`)}>
+                <span className="text-dark mx-2" onClick={()=>navigate(`/stock/out/${item.id}`)}>
                   <AiOutlineEdit size={25} />
+                </span>
+                <span className="text-primary mx-2" onClick={()=>navigate(`/stock/detail/${item.id}`)}>
+                  <AiFillGold size={25} />
+                </span>
+                <span className="text-info mx-2" onClick={()=>navigate(`/stockout/detail/${item.id}`)}>
+                  <AiOutlineContainer size={25} />
                 </span>
               </td>
             </tr>

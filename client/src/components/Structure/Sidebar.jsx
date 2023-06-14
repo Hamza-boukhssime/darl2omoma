@@ -79,17 +79,6 @@ function Sidebar() {
                     </ul>
                 </div>
 
-                
-                <div className="position-absolute bottom-0  ">
-                    <p className='pe-3  my-4'>
-                        <FontAwesomeIcon 
-                            icon={faSignOut} 
-                            className='ms-3 '
-                            />
-                        تسجيل الخروج
-                    </p>
-                    
-                </div>
     </div>
   )
 }

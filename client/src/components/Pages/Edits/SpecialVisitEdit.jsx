@@ -137,15 +137,15 @@ function SpecialVisitEdit() {
             if(!checked && type !== 'checkbox') return {...pre, [name]:value } 
         })
      }
-     function handleCreate(e){
+     function handleUpdate(e){
         e.preventDefault()
-       const data = pData
-       
-        axios.post('http://localhost:5000/add/specialvisit',data)
-            .then((response) => {
-            return response
-        }).catch(err => err)
-        navigate('/')
+        const data = pData
+        data.id=id
+         axios.post('http://localhost:5000/update/specialvisit',data).then((response) => {
+             return response
+         }).catch(err => err)
+     
+         navigate('/')
     }
 
   return (
@@ -155,7 +155,7 @@ function SpecialVisitEdit() {
             إستمارة النزيلة في حالة خاصة
         </h1>
 
-        <form method="POST" className='my-5 container px-4 ' onSubmit={handleCreate} >
+        <form method="POST" className='my-5 container px-4 ' onSubmit={handleUpdate} >
             <div className="my-3">
                 <h3 className="fs-2 text-secondary">تاريخ الدخول</h3>
                 <div className="row my-4">

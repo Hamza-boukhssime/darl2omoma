@@ -1,21 +1,29 @@
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
+import { AiOutlineEdit, AiOutlineEye, AiOutlineDelete } from 'react-icons/ai';
+
 
 function SearchTable({data}) {
     const navigate = useNavigate()
-    function handleClick(e){
-        const {name,id}=e.target
-        console.log(id)
-    
-        if(name==='الحمل'){
-            navigate(`/print/pregnant/${id}`)
-          }else if(name==='مرافقة الطفل'){
-            navigate(`/print/withbaby/${id}`)
-        
-          }else if(name==='حالة خاصة'){
-            navigate(`/print/specialvisit/${id}`)
-          }
-    
+    function handleEdit(id, raison) {
+      if (raison === 'الحمل') {
+        navigate(`/edit/pregnant/${id}`);
+      } else if (raison === 'مرافقة الطفل') {
+        navigate(`/edit/withbaby/${id}`);
+      } else if (raison === 'حالة خاصة') {
+        navigate(`/edit/specialvisit/${id}`);
+      }
+    }
+    function handleClick(raison, id) {
+      const name = raison;
+  
+      if (name === 'الحمل') {
+        navigate(`/print/pregnant/${id}`);
+      } else if (name === 'مرافقة الطفل') {
+        navigate(`/print/withbaby/${id}`);
+      } else if (name === 'حالة خاصة') {
+        navigate(`/print/specialvisit/${id}`);
+      }
     }
   return (
     <div className="container">
@@ -46,7 +54,13 @@ function SearchTable({data}) {
                             <td>{item.academicLevel}</td>
                             <td>{moment(item.dateCheckIn).utc().add(1, 'days').format("YYYY-MM-DD")}</td>
                             <td>
-                            <button onClick={handleClick} id={item.id} name={item.raison} className="btn btn-info text-white">قراءة المعلومات</button>
+                            <span className="text-warning" onClick={() => handleClick(item.raison, item.id)}>
+                              <AiOutlineEye size={25} />
+                            </span>
+
+                            <span className="text-primary mx-2" onClick={() => handleEdit(item.id, item.raison)}>
+                              <AiOutlineEdit size={25} />
+                            </span>
                             </td>
                         </tr>
                     ))

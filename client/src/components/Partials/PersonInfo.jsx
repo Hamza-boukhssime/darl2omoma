@@ -2,6 +2,7 @@ import React from 'react'
 
 function PersonInfo(props) {
     const {title, onChange,label,type,name} = props
+    
     const inputsDetail=[
         {
             label:'الإسم',
@@ -16,7 +17,8 @@ function PersonInfo(props) {
         {
             label:'تاريخ الإزدياد',
             type:'date',
-            name:"birthDay"
+            name:"birthDay",
+            class:'showBirth'
         },
         
         {
@@ -51,12 +53,12 @@ function PersonInfo(props) {
         <div className='my-3'>
             
             <h3 className="fs-2 text-secondary">{title}</h3>
-            <div className="row my-3">
+            <div className="row my-3 ">
 
                 {
                     
                     inputsDetail.map((input, index)=>(
-                        <div key={index} className='col-6'>
+                        <div key={index} className='col-6 ' >
                            <div className="row p-0 m-0">
                                 
                                 <label key={index} htmlFor={input.name} className="col-4 col-form-label fw-bold  my-3">{input.label}</label>

@@ -17,7 +17,9 @@ import SpecialVisitEdit from '../Pages/Edits/SpecialVisitEdit'
 import MealsEdit from "../Pages/Meals/MealsEdit"
 import Stock from '../../Stock/Stock'
 import StockForm from '../../Stock/StockForm'
-import StockFormUpdate from '../../Stock/StockFormUpdate'
+import StockFormUpdate from '../../Stock/StockOut'
+import StockOut from '../../Stock/StockFormUpdate'
+import StockDetails from '../../Stock/StockDetails'
 function Content() {
   return (
     <div className='col-md-10 p-0 m-0 bg-light ' >
@@ -40,6 +42,9 @@ function Content() {
         <Route path='/stock' element={<Stock />} />
         <Route path='/stock/form' element={<StockForm />} />
         <Route path='/stock/detail/:id' element={<StockFormUpdate />} />
+        <Route path='/stock/out/:id' element={<StockOut />} />
+        <Route path='/stockout/detail/:id' element={<StockDetails />} />
+
 
       </Routes>
     </div>

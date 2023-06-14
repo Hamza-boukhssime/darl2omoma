@@ -7,8 +7,10 @@ function Stock() {
       <div className="py-4 px-5 table-container">
       <StockTable />
       </div>
+
       <div className="py-4 px-5 text-center ">
         <Link to={'/stock/form'} className="btn btn-warning text-white">إضافة مخزون</Link>
+
       </div>  
     </div>
   );

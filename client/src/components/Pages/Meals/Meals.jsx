@@ -113,8 +113,18 @@ function Meals() {
       
      <div className='div-button'>
      <Link to="/meals/edit">
-      <button className='button-meals' style={{padding:10}}> تعديل الوجبات</button>
+      <button className='button-meals ms-5' style={{padding:10}}> تعديل الوجبات</button>
       </Link>
+      <button onClick={()=>{
+        document.querySelectorAll('button').forEach(item=>{
+          item.style.display='none'
+        })
+        window.print()
+        document.querySelectorAll('button').forEach(item=>{
+          item.style.display=''
+        })
+
+    }} className='button-meals' >نسخ</button>
      </div>
 
     </div>
