@@ -4,12 +4,13 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 
-const StockFormUpdate = () => {
+const StockOut = () => {
   const [designation, setDesignation] = useState("");
   const [dateEntree, setDateEntree] = useState("");
   const [quantiteEntree, setQuantiteEntree] = useState("");
   const [quantiteSortie, setQuantiteSortie] = useState("");
   const [datePeremption, setDatePeremption] = useState("");
+  const [disponible, setDisponible] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -19,10 +20,23 @@ const StockFormUpdate = () => {
       setDesignation(data.designation);
       setDateEntree(data.date_entree);
       setQuantiteEntree(data.quantite_entree);
-      setQuantiteSortie(data.quantite_sortie);
+      setQuantiteSortie(data.disponible<=0?0:data.quantite_sortie);
       setDatePeremption(data.date_peremption);
+      setDisponible(data.disponible);
+
     });
   }, []);
+
+  const handleChange=(e,q)=>{
+    if(parseInt(e.target.value)>parseInt(q)){
+      document.querySelector('.danger').style.display='block' 
+    }else{
+      setQuantiteSortie(e.target.value)
+      document.querySelector('.danger').style.display='none' 
+
+    }
+
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,6 +47,7 @@ const StockFormUpdate = () => {
       quantiteEntree,
       quantiteSortie,
       datePeremption,
+      disponible
     };
     axios
       .put("http://localhost:5000/update/stock", formData)
@@ -47,6 +62,10 @@ const StockFormUpdate = () => {
     <div className="d-flex justify-center flex-column  px-5 bg-white ">
       <h1 className="text-center my-3">تعديل المخزون</h1>
       <Form onSubmit={handleSubmit} className="w-100 mt-5 ">
+      <Form.Control
+            type="hidden"
+            value={disponible}
+          />
         <Form.Group controlId="designation">
           <Form.Label>التسمية</Form.Label>
           <Form.Control
@@ -78,18 +97,21 @@ const StockFormUpdate = () => {
             required
           />
         </Form.Group>
-
+      
         <Form.Group controlId="quantiteSortie">
+
           <Form.Label>كمية الخروج</Form.Label>
           <Form.Control
             type="number"
             placeholder="أدخل الكمية المستخرجة"
             value={quantiteSortie}
-            onChange={(event) => setQuantiteSortie(event.target.value)}
+          
+            onChange={(e)=>handleChange(e,quantiteEntree)}
             required
           />
         </Form.Group>
-
+        
+        <p className="d-none mt-1 fw-bold text-danger danger" >الكمية المستخرجة أكبر من المخزون</p>
         <Form.Group controlId="datePeremption">
           <Form.Label>تاريخ الانتهاء</Form.Label>
           <Form.Control
@@ -116,4 +138,4 @@ const StockFormUpdate = () => {
   );
 };
 
-export default StockFormUpdate;
+export default StockOut;

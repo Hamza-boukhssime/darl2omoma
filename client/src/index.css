@@ -179,9 +179,25 @@ body{
   }
 
 
-
 }
 
 .meals-table {
   height: 600px; /* Adjust the height as needed */
+}
+.login{
+  height: 100vh;
+  width: 100vw;
+margin: 0;
+  background-color: #e3a405;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContain{
+  width: 300px;
+
+}
+.loginContain button{
+  width: 100%;
 }

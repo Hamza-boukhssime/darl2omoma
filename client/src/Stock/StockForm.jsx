@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const StockForm = () => {
   const [designation, setDesignation] = useState('');
@@ -8,9 +9,12 @@ const StockForm = () => {
   const [quantiteEntree, setQuantiteEntree] = useState('');
   const [quantiteSortie, setQuantiteSortie] = useState('');
   const [datePeremption, setDatePeremption] = useState('');
+  const navigate = useNavigate();
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(dateEntree)
     const formData = {
       designation,
       dateEntree,
@@ -26,6 +30,7 @@ const StockForm = () => {
     setQuantiteEntree('');
     setQuantiteSortie('');
     setDatePeremption('');
+    navigate("/stock");
   };
 
   return (

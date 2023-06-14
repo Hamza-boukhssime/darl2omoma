@@ -43,7 +43,7 @@ function SpecialVisit() {
             إستمارة النزيلة في حالة خاصة
         </h1>
 
-        <form method="POST" className='my-5 container px-4 ' onSubmit={handleCreate} >
+        <form method="POST" className='my-5 container px-4 ' onSubmit={handleCreate} encType='multipart/form-data' >
             <CheckInOut title='تاريخ الدخول' onChange={handleChanges} date='dateCheckIn' time='timeCheckIn' />
             <div className='my-3'>
                 <div className="row my-3">
@@ -54,13 +54,17 @@ function SpecialVisit() {
                 </div>
             </div>
             <PersonInfo title='هوية المرأة'
-                 label={'التاريخ المحتمل للإقامة'} 
+                 label={'المدة المحتملة للإقامة'} 
                  type={'text'}
                  name={'possibleDaysToStay'}
                  onChange={handleChanges} />
+                 <div class="my-3">
+                    <label for="formFile" className="col-form-label fw-bold ">ارفع صورة البطاقة الوطنية</label>
+                    <input onChange={handleChanges} className="border-primary rounded form-control " type="file" name="cinImag" accept=".png,.jpg,.tiff" lang="ar"/>
+                </div>
 
             <StudyLevel onChange={handleChanges} />
-            <Husband onChange={handleChanges} />
+            <Husband onChange={handleChanges} Husband="اسم الزوج" job='مهنة الزوج' />
             <Transport onChange={handleChanges} />
             <DecisionToCome onChange={handleChanges} />
             <WhoAdvice onChange={handleChanges} />

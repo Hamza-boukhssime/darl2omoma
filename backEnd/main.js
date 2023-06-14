@@ -3,6 +3,7 @@ import mysql from 'mysql'
 import bodyParse from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv';
+import multer from 'multer'
 
 dotenv.config();
 
@@ -20,40 +21,113 @@ const db = mysql.createConnection({
 
 })
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null,path.join(__dirname,'uploads') )
 
-app.get('/', (req,res)=>{
-    res.send("hello this is backend")
-    
-})
+  },
+  filename: function (req, file, cb) {
+    // Extract the filename and add a timestamp to make it unique
+    const filename =  file.originalname;
+    cb(null, filename);
+  }
+});
+const upload = multer({ storage: storage });
 
-app.post('/add/pregnant',(req,res)=>{
+
+app.post('/update/pregnant',(req,res)=>{
+  const id = req.body.id
 
     const {
         dateCheckIn, timeCheckIn,GivngBirthStatu,firstName,lastName
         ,birthDay,age,cin,town,community,possibleDayBirth,NumberOfPregnancies,numberLiveChildren,academicLevel,
         fatherName,fatherJob,transport,road,passage,decisionToCome,accompany,givenBirthLocation,dateBack,timeBack,
-        dateCheckOut,timeCheckOut,DurationOfStay
+        dateCheckOut,timeCheckOut,DurationOfStay,GivngBirthStatuBefore,GivngBirthStatuAfter
         } = req.body
     
 
-    const q = `
-        INSERT INTO pregnant
-            (id, cin,dateCheckIn, timeCheckIn, GivngBirthStatu, firstName, lastName, 
-            birthDay, age,town, community, possibleDayBirth, NumberOfPregnancies, numberLiveChildren, academicLevel,
-            fatherName, fatherJob, transport, road, passage, decisionToCome, accompany, givenBirthLocation, dateBack,
-             timeBack, dateCheckOut, timeCheckOut, DurationOfStay) 
-             VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+    const q = `UPDATE pregnant
+    SET cin = ?, dateCheckIn = ?, timeCheckIn = ?, GivngBirthStatu = ?, firstName = ?, lastName = ?, 
+        birthDay = ?, age = ?, town = ?, community = ?, possibleDayBirth = ?, NumberOfPregnancies = ?, 
+        numberLiveChildren = ?, academicLevel = ?, fatherName = ?, fatherJob = ?, transport = ?, 
+        road = ?, passage = ?, decisionToCome = ?, accompany = ?, givenBirthLocation = ?, dateBack = ?, 
+        timeBack = ?, dateCheckOut = ?, timeCheckOut = ?, DurationOfStay = ?,GBSBefore=?,GBSAfter=?
+    WHERE id = ${id};
+    `
+      
+             
     
     db.query(q, [cin,dateCheckIn,timeCheckIn,GivngBirthStatu
         ,firstName,lastName,birthDay,age,town,community,possibleDayBirth,NumberOfPregnancies,numberLiveChildren,
         academicLevel,fatherName,fatherJob,transport,road,passage,decisionToCome,accompany,givenBirthLocation,dateBack,timeBack,
-        dateCheckOut,timeCheckOut,DurationOfStay
+        dateCheckOut,timeCheckOut,DurationOfStay,GivngBirthStatuBefore,GivngBirthStatuAfter
     ],(err,data)=>{
         if(err) return res.send(err)
         return res.send(data)
     })
     
 
+})
+app.post('/add/pregnant',upload.single('file'),(req,res)=>{
+    //get extension of image
+    const file = req.file;
+console.log(file)
+
+    // const { name, mimetype } = file;
+    const ext = req.body.cinImag.split('.')[1];
+
+    var {
+        cinImag,dateCheckIn, timeCheckIn,GivngBirthStatuBefore,GivngBirthStatuAfter,firstName,lastName
+        ,birthDay,age,cin,town,community,possibleDayBirth,NumberOfPregnancies,numberLiveChildren,academicLevel,
+        fatherName,fatherJob,transport,road,passage,decisionToCome,accompany,givenBirthLocation,dateBack,timeBack,
+        dateCheckOut,timeCheckOut,DurationOfStay
+        } = req.body
+    
+        cinImag=Date.now()+'.'+ext;
+    const q = `
+        INSERT INTO pregnant
+            (id,cinImage, cin,dateCheckIn, timeCheckIn, firstName, lastName, 
+            birthDay, age,town, community, possibleDayBirth, NumberOfPregnancies, numberLiveChildren, academicLevel,
+            fatherName, fatherJob, transport, road, passage, decisionToCome, accompany, givenBirthLocation, dateBack,
+             timeBack, dateCheckOut, timeCheckOut, DurationOfStay,GBSBefore,GBSAfter) 
+             VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+    
+    db.query(q, [cinImag,cin,dateCheckIn,timeCheckIn
+        ,firstName,lastName,birthDay,age,town,community,possibleDayBirth,NumberOfPregnancies,numberLiveChildren,
+        academicLevel,fatherName,fatherJob,transport,road,passage,decisionToCome,accompany,givenBirthLocation,dateBack,timeBack,
+        dateCheckOut,timeCheckOut,DurationOfStay,GivngBirthStatuBefore,GivngBirthStatuAfter
+    ],(err,data)=>{
+        if(err) return res.send(err)
+        return res.send(data)
+    })
+    
+
+})
+app.post('/update/specialvisit', (req,res)=>{
+  const id = req.body.id
+    const {
+        cin,firstName,lastName,town,community,academicLevel,accompany,birthDay,age,dateCheckIn,timeCheckIn,fatherName,
+        fatherJob,decisionToCome,medicalCheck,passage,possibleDaysToStay,raisonForVisit,road,dateBack,timeBack,dateCheckOut,
+        timeCheckOut,DurationOfStay,transport,whoAdviceToCome
+    } = req.body
+    
+    
+
+    const q = `
+        Update specialvisit
+        Set cin=?, firstName=?, lastName=?, town=?, community=?, academicLevel=?, accompany=?,
+             birthDay=?,age=?, dateCheckIn=?, timeCheckIn=?, fatherName=?, fatherJob=?, decisionToCome=?, medicalCheck=?, passage=?,
+            possibleDaysToStay=?, raisonForVisit=?, road=?, dateBack=?, timeBack=?, dateCheckOut=?, timeCheckOut=?, DurationOfStay=?, 
+            transport=?, whoAdviceToCome=? 
+        Where id = ${id};
+    `
+    db.query(q, [cin,firstName,lastName,town,community,academicLevel,accompany,birthDay,age,dateCheckIn,timeCheckIn,fatherName,
+                 fatherJob,decisionToCome,medicalCheck,passage,possibleDaysToStay,raisonForVisit,road,dateBack,timeBack,dateCheckOut,
+                 timeCheckOut,DurationOfStay,transport,whoAdviceToCome  
+                ],(err,data)=>{
+                    if(err) return res.send(err)
+                    return res.send(data)
+                })
 })
 app.post('/add/specialvisit', (req,res)=>{
     const {
@@ -79,6 +153,33 @@ app.post('/add/specialvisit', (req,res)=>{
                 })
 })
 
+// update Baby 
+app.post('/update/baby', (req,res)=>{
+  const id = req.body.id
+    const {
+        cin,firstName,lastName,town,community,academicLevel,accompany,birthDay,age,dateCheckIn,timeCheckIn,babyFirstName,
+        babyLastName,babyage,bloodrelationship,fatherName,fatherJob,decisionToCome,medicalCheck,passage,possibleDaysToStay,
+        raisonForVisit,road,dateBack,timeBack,dateCheckOut,timeCheckOut,DurationOfStay,transport,whoAdviceToCome
+    } = req.body
+    
+
+    const q = `
+        UPDATE withbaby
+        SET cin=?, firstName=?, lastName=?, town=?, community=?, academicLevel=?, accompany=?,
+             birthDay=?,age=?, dateCheckIn=?, timeCheckIn=?,babyname=?, babylastName=?, babyage=?, bloodrelationship=?,fatherName=?, fatherJob=?, decisionToCome=?, medicalCheck=?, passage=?,
+            possibleDaysToStay=?, raisonForVisit=?, road=?, dateBack=?, timeBack=?, dateCheckOut=?, timeCheckOut=?, DurationOfStay=?, 
+            transport=?, whoAdviceToCome=?
+        WHERE id = ${id};
+    `
+    db.query(q, [cin,firstName,lastName,town,community,academicLevel,accompany,birthDay,age,dateCheckIn,timeCheckIn,
+                 babyFirstName,babyLastName,babyage,bloodrelationship,fatherName,
+                 fatherJob,decisionToCome,medicalCheck,passage,possibleDaysToStay,raisonForVisit,road,dateBack,timeBack,dateCheckOut,
+                 timeCheckOut,DurationOfStay,transport,whoAdviceToCome  
+                ],(err,data)=>{
+                    if(err) return res.send(err)
+                    return res.send(data)
+                })
+})
 // Add Baby 
 app.post('/add/baby', (req,res)=>{
     const {
@@ -110,6 +211,7 @@ app.get('/data/:name',(req,res)=>{
     const q = `select * from ${name} where Valide=1` 
     db.query(q, (err, data)=>{
         if(err) return res.send(err)
+        console.log(data)
         return res.send(data)
     })
 })
@@ -125,6 +227,7 @@ app.get('/print/:name',(req,res)=>{
         return res.send(data)
     })
 })
+
 
 
 app.get('/api/test', (req,res)=>{
@@ -199,12 +302,12 @@ console.log(id)
 
   
   
-app.put('/meals/:id', async (req, res) => {
+app.put('/meals/:id', (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
   
     try {
-      await db.query('UPDATE meals SET name = ? WHERE id = ?', [name, id]);
+       db.query('UPDATE meals SET name = ? WHERE id = ?', [name, id]);
       res.send('Meal updated successfully');
     } catch (error) {
       console.error('Error updating meal:', error);
@@ -273,7 +376,6 @@ app.post('/add/stock', (req, res) => {
       datePeremption
   } = req.body
 
-
   const q = `
       insert into stock(id, designation, date_entree, quantite_entree, quantite_sortie, date_peremption) VALUES (null,?,?,?,?,?)
   `
@@ -290,22 +392,97 @@ app.post('/add/stock', (req, res) => {
 //update stock
 app.put('/update/stock', (req, res) => {
   const {
+    id,
+    designation,
+    dateEntree,
+    quantiteEntree,
+    quantiteSortie,
+    datePeremption,
+  } = req.body;
+
+  const updateStockQuery = `
+    UPDATE stock
+    SET designation=?, date_entree=?, quantite_sortie=?, quantite_entree=?, date_peremption=?
+    WHERE id=?
+  `;
+  const updateOutDetails = `
+    UPDATE stockoutdetails
+    SET productName=?
+    WHERE idProduct=?
+  `;
+
+  db.query(updateStockQuery, [designation, dateEntree, quantiteSortie, quantiteEntree, datePeremption, id], (err, data) => {
+    if (err) {
+      return res.send(err);
+    }
+
+    // Perform the second update query here
+    db.query(updateOutDetails, [designation, id], (err2, data2) => {
+      if (err2) {
+        return res.send(err2);
+      }
+
+      return res.send(data2);
+    });
+  });
+});
+
+// app.put('/update/stock', (req, res) => {
+//   const {
+//       id,
+//       designation,
+//       dateEntree,
+//       quantiteEntree,
+//       quantiteSortie,
+//       datePeremption,
+
+//   } = req.body
+
+//   const q=`
+//       update stock set designation=?, date_entree=?,quantite_sortie=?, quantite_entree=?, date_peremption=? where id=?`
+//   db.query(q, [designation,
+//       dateEntree,
+//       quantiteSortie,
+//       quantiteEntree,
+//       datePeremption,
+//       id
+//   ], (err, data) => {
+//       if (err) return res.send(err)
+//       return res.send(data)
+//   })
+// })
+//update stock
+app.put('/update/sortie', (req, res) => {
+  const {
       id,
-      designation,
-      dateEntree,
-      quantiteEntree,
-      quantiteSortie,
-      datePeremption
-  } = req.body
+      quantiteSortieOld,
+      quantiteSortieNew  } = req.body
+  var Some = parseInt(quantiteSortieNew)+parseInt(quantiteSortieOld)
+  
   const q = `
-      update stock set designation=?, date_entree=?, quantite_entree=?, quantite_sortie=?, date_peremption=? where id=?
+      update stock set quantite_sortie=? where id=?
   `
-  db.query(q, [designation,
-      dateEntree,
-      quantiteEntree,
-      quantiteSortie,
-      datePeremption,
+  db.query(q, [
+    Some,
       id
+  ], (err, data) => {
+      if (err) return res.send(err)
+      return res.send(data)
+  })
+
+  
+
+})
+app.post('/add/details', (req, res) => {
+  const {designation,quantiteSortieNew,id} = req.body
+  const date = new Date()
+  const todayDate =`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+  const queryStock = `insert into stockoutdetails(dateSortie, productName,quntite,idProduct) values(?,?,?,?)`
+  db.query(queryStock, [
+    todayDate,
+    designation,
+    parseInt(quantiteSortieNew),
+    id
   ], (err, data) => {
       if (err) return res.send(err)
       return res.send(data)
@@ -314,6 +491,15 @@ app.put('/update/stock', (req, res) => {
 //get stock data
 app.get('/list/stock', (req, res) => {
   const sql = `select * from stock`
+  db.query(sql, (error, results) => {
+      if (error);
+      res.send(results);
+  });
+})
+//get stock Out details
+app.get('/stockout/details/:id', (req, res) => {
+  const {id} = req.params
+  const sql = `select * from stockoutdetails where idProduct=${id}`
   db.query(sql, (error, results) => {
       if (error);
       res.send(results);

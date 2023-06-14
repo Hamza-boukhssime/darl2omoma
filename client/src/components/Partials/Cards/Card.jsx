@@ -14,6 +14,7 @@ function Card({item}) {
   return (
 
     <div className="py-2 text-white rounded-3 card1" >
+        {console.log(pregnant)}
         <div className='d-flex justify-content-around align-items-center '>
             <p className="fs-4 fw-bold text-start">{item.title}</p>
             

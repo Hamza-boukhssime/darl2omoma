@@ -9,7 +9,11 @@ function Table() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/test').then((res) => setStatus(res.data));
+    axios.get('http://localhost:5000/api/test').then((res) => {
+      //get 10 first element 
+      const data = res.data.slice(0, 9);
+      setStatus(data)
+    });
   }, []);
 
   function handleClick(raison, id) {
@@ -33,30 +37,7 @@ function Table() {
       navigate(`/edit/specialvisit/${id}`);
     }
   }
-  const handleDelete = (reason, id) => {
-    var re = ""
-    if (reason === 'الحمل') {
-      re="pregnant";
-    } else if (reason === 'مرافقة الطفل') {
-      re="withbaby";
-    } else if (reason === 'حالة خاصة') {
-      re="specialvisit";
-    }
 
-    const url = `http://localhost:5000/delete/${re}/${id}`;
-  
-    axios
-      .post(url)
-      .then(response => {
-        window.location.reload();
-
-        // Handle success response here
-      })
-      .catch(error => {
-        console.error('Failed to delete patient', error);
-        // Handle error here
-      });
-  };
   
   
 
@@ -77,8 +58,7 @@ function Table() {
         </thead>
         {/* Table body */}
         <tbody>
-          {pregStatus &&
-            pregStatus.map((item, index) => (
+          {pregStatus&&pregStatus.map((item, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{item.firstName}</td>
@@ -94,9 +74,6 @@ function Table() {
                     <AiOutlineEdit size={25} />
                   </span>
 
-                  <span className="text-danger" onClick={() => handleDelete(item.raison, item.id)}>
-                    <AiOutlineDelete size={25} />
-                  </span>
                 </td>
               </tr>
             ))}

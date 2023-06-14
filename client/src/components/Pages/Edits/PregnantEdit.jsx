@@ -1,180 +1,129 @@
-// import Accompany from "../../Partials/Accompany";
-// import CheckInOut from "../../Partials/CheckInOut";
-// import DecisionToCome from "../../Partials/DecisionToCome";
-// import DurationOfStay from "../../Partials/DurationOfStay";
-// import Husband from "../../Partials/Husband";
-// import PersonInfo from "../../Partials/PersonInfo";
-// import ReturnToCenter from "../../Partials/ReturnToCenter";
-// import StudyLevel from "../../Partials/StudyLevel";
-// import Transport from "../../Partials/Transport";
-// import { useParams, useNavigate } from "react-router-dom";
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
-
-// function Pregnant() {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const [pData, setPdata] = useState({});
-
-//   useEffect(() => {
-//     fetchPatientData();
-//   }, []);
-
-//   const fetchPatientData = async () => {
-//     try {
-//       const response = await axios.get(`/patients/pregnant/${id}`);
-//       const patientData = response.data;
-//       setPdata(patientData);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   const handleChanges = (e) => {
-//     const { name, value } = e.target;
-//     setPdata((prev) => {
-//       return { ...prev, [name]: value };
-//     });
-//   };
-
-//   const givenBirth = [
-//     {
-//       label: 'مركز صحي',
-//       value: 'مركز صحي',
-//     },
-//     {
-//       label: 'المستشفى الإقليمي',
-//       value: 'المستشفى الإقليمي',
-//     },
-//     {
-//       label: 'أخر',
-//       value: 'أخر',
-//     },
-//   ];
-//   const saveData = async (reason) => {
-//     try {
-//       const response = await axios.put(`/patients/${reason}/${id}`, pData);
-//       // Handle the response or any success/error messages here
-//       console.log(response.data);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-  
-
-//   return (
-//     <div>
-//       <h1 className='py-3 text-center fs-3 text-black fw-bold' style={{ background: '#FFFFFF', borderBottom: '1px solid #e2e2e2' }}>
-//         إستمارة النزيلة في حالة الحمل
-//       </h1>
-
-//       <form method="POST" action={`/edit/pregnant/${id}`}  className='my-5 container px-4'>
-//         <CheckInOut title='تاريخ الدخول' onChange={handleChanges} date='dateCheckIn' time='timeCheckIn' />
-
-//         <div className='my-3'>
-//           <h3 className="fs-2 text-secondary">حالة الحمل</h3>
-//           <div className="row my-3">
-//             <div className="col-md-3 text-start">
-//               <input className="bg-primary" onChange={handleChanges} type="radio" name="GivngBirthStatu" value='قبل الوضع جيدة' />
-//             </div>
-//             <label className="col-md-3 form-label fw-bold text-end">قبل الوضع جيدة</label>
-//             <div className="col-md-3 text-start">
-//               <input onChange={handleChanges} type="radio" name="GivngBirthStatu" value='بعد الوضع جيدة' />
-//             </div>
-//             <label className="col-md-3 text-end fw-bold">بعد الوضع جيدة</label>
-//           </div>
-//         </div>
-
-//         <PersonInfo
-//             title='هوية المرأة'
-//             father=''
-//             type={'date'}
-//             label={'التاريخ المحتمل للوضع'}
-//             name={'possibleDayBirth'}
-//             onChange={handleChanges}
-//             pData={pData}
-//           />
-
-//         <div className='my-3'>
-//           <h3 className="fs-2 text-secondary">عدد الولادات </h3>
-//           <div className="my-3 row">
-//             <label htmlFor="NumberOfPregnancies" className="col-md-2 col-form-label fw-bold">عدد مرات الحمل</label>
-//             <div className="col-md-4">
-//               <input onChange={handleChanges} type="number" min='0' name='NumberOfPregnancies' className="border-primary rounded form-control" value={pData.NumberOfPregnancies} />
-//             </div>
-//             <label htmlFor="numberLiveChildren" className="col-md-2 col-form-label fw-bold">عدد الأطفال الأحياء</label>
-//             <div className="col-md-4">
-//               <input onChange={handleChanges} type="number" min='0' name='numberLiveChildren' className="border-primary rounded form-control" value={pData.numberLiveChildren} />
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Study Level */}
-//         <StudyLevel onChange={handleChanges} value={pData.academicLevel} />
-
-//         {/* Husband */}
-//         <Husband onChange={handleChanges} value={pData.fatherName} />
-
-//         {/* Transport */}
-//         <Transport onChange={handleChanges} value={pData.transport} />
-
-//         {/* Decision To Come */}
-//         <DecisionToCome onChange={handleChanges} value={pData.decisionToCome} />
-
-//         {/* Accompany */}
-//         <Accompany onChange={handleChanges} value={pData.accompany} />
-
-//         <div className="my-3">
-//           <h3 className="fs-2 text-secondary">الوضع</h3>
-//           <div className="my-3 row">
-//             <select onChange={handleChanges} name="givenBirthLocation" className="col-12 rounded border-primary my-3" value={pData.givenBirthLocation}>
-//               {
-//                 givenBirth.map((item, index) => (
-//                   <option key={index} value={item.value}>{item.label}</option>
-//                 ))
-//               }
-//             </select>
-//           </div>
-//         </div>
-
-//         <ReturnToCenter onChange={handleChanges} value={pData.dateBack} />
-
-//         <CheckInOut onChange={handleChanges} title='الخروج' date='dateCheckOut' time='timeCheckOut' value={pData.dateCheckOut} />
-
-//         <DurationOfStay onChange={handleChanges} value={pData.DurationOfStay} />
-
-//         <div className="row">
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default Pregnant;
-
-
-
-import Accompany from "../../Partials/Accompany";
-import CheckInOut from "../../Partials/CheckInOut";
-import DecisionToCome from "../../Partials/DecisionToCome";
-import DurationOfStay from "../../Partials/DurationOfStay";
-import Husband from "../../Partials/Husband";
-import PersonInfo from "../../Partials/PersonInfo";
-import ReturnToCenter from "../../Partials/ReturnToCenter";
-import StudyLevel from "../../Partials/StudyLevel";
-import Transport from "../../Partials/Transport";
-import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { useNavigate,useParams } from 'react-router-dom'
+import moment from "moment"
 
 function Pregnant() {
+  const navigate =useNavigate()
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [pData, setPdata] = useState({});
+  const [pData, setPdata] =useState({})
+  const givenBirth = [
+    {
+        label: 'مركز صحي',
+        value : 'مركز صحي'
+    },
+    {
+        label: 'المستشفى الإقليمي',
+        value : 'المستشفى الإقليمي' 
+    }
+    ,
+    {
+        label: 'أخر',
+        value : 'أخر' 
+    }
+];
+  const inputsDetail=[
+      {
+          label:'الإسم',
+          type:'text',
+          name:"firstName",
+          value:pData.firstName,
+      },
+      {
+          label:'النسب',
+          type:'text',
+          name:"lastName",
+          value:pData.lastName,
+
+
+      },
+      {
+          label:'تاريخ الإزدياد',
+          type:'date',
+          name:"birthDay",
+          value:moment(pData.birthDay).utc().add(1, 'days').format("YYYY-MM-DD"),
+
+      },
+      
+      {
+          label:'السن',
+          type:'number',
+          name:"age",
+          value:pData.age,
+
+      },
+      {
+          label:'رقم البطاقة الوطنية',
+          type:'text',
+          name:"cin",
+          value:pData.cin,
+
+      },
+      {
+          label:'الدوار',
+          type:'text',
+          name:"town",
+          value:pData.town,
+
+      },
+      {
+          label:'الجماعة',
+          type:'text',
+          name:"community",
+          value:pData.community,
+
+      },
+      {
+          label:'التاريخ المحتمل للوضع', 
+          type:'text',
+          name:'possibleDaysToStay',
+          value:moment(pData.possibleDayBirth).utc().add(1, 'days').format("YYYY-MM-DD"),
+      },
+  ]
+  const transport =[
+      {
+          label:'سيارة الإسعاف لدار الأمومة',
+          value: "سيارة الإسعاف لدار الأمومة"
+      },
+      {
+          label:'وسيلة نقل خاصة',
+          value: "وسيلة نقل خاصة"
+      },
+      {
+          label:'سيارة الإسعاف خاصة',
+          value: "سيارة الإسعاف خاصة"
+      },
+      {
+          label:'أخر',
+          value: "أخر"
+      }
+  ]
+  const options =[
+      {
+          label: 'المرأة',
+          value:'المرأة'
+      },
+      {
+          label: 'الزوج',
+          value:'الزوج'
+      },
+      {
+          label: 'مولدة تقليدية',
+          value:'مولدة تقليدية'
+      },
+      {
+          label: 'مؤسسة صحية',
+          value:'مؤسسة صحية'
+      },
+      {
+          label: 'أخر',
+          value:'أخر'
+      },
+      
+  ]
+  const accompany = ['الزوج', 'الأم', 'الأخت', "أم الزوج", "أخر" ]
+
+  
 
   useEffect(() => {
     fetchPatientData();
@@ -182,133 +131,308 @@ function Pregnant() {
 
   const fetchPatientData = async () => {
     try {
-      const response = await axios.get(`/patients/pregnant/${id}`);
+      const response = await axios.get(`http://localhost:5000/print/pregnant`,{params:{id:id}})
       const patientData = response.data;
-      setPdata(patientData);
+      setPdata(...patientData);
+      console.log(pData)
     } catch (error) {
       console.error(error);
     }
   };
+  function onChange(e){
+    const {name, value} = e.target
+    setPdata((pre)=>{
+        return{...pre, [name]:value } 
+    })
+    
+ }
+   function handleUpdate(e){
+    e.preventDefault()
+   const data = pData
+   data.id=id
+    axios.post('http://localhost:5000/update/pregnant',data).then((response) => {
+        return response
+    }).catch(err => err)
 
-  const handleChanges = (e) => {
-    const { name, value } = e.target;
-    setPdata((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
-
-  const givenBirth = [
-    {
-      label: 'مركز صحي',
-      value: 'مركز صحي',
-    },
-    {
-      label: 'المستشفى الإقليمي',
-      value: 'المستشفى الإقليمي',
-    },
-    {
-      label: 'أخر',
-      value: 'أخر',
-    },
-  ];
-  
-  const saveData = async (reason) => {
-    try {
-      const response = await axios.put(`/edit/pregnant/${id}`, pData);
-      // Handle the response or any success/error messages here
-      console.log(response.data);
-      fetchPatientData(); // Fetch the updated data from the server
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    navigate('/')
+}
 
   return (
     <div>
-      <h1 className='py-3 text-center fs-3 text-black fw-bold' style={{ background: '#FFFFFF', borderBottom: '1px solid #e2e2e2' }}>
-        إستمارة النزيلة في حالة الحمل
+    
+    <h1 className='py-3 text-center fs-3 text-black fw-bold' style={{background:'#FFFFFF',   borderBottom: '1px solid #e2e2e2'}} >
+    إستمارة النزيلة في حالة الحمل
       </h1>
 
-      <form className='my-5 container px-4' onSubmit={saveData}>
-        <CheckInOut title='تاريخ الدخول' onChange={handleChanges} date='dateCheckIn' time='timeCheckIn' />
-
-        <div className='my-3'>
-          <h3 className="fs-2 text-secondary">حالة الحمل</h3>
-          <div className="row my-3">
-            <div className="col-md-3 text-start">
-              <input className="bg-primary" onChange={handleChanges} type="radio" name="GivngBirthStatu" value='قبل الوضع جيدة' />
-            </div>
-            <label className="col-md-3 form-label fw-bold text-end">قبل الوضع جيدة</label>
-            <div className="col-md-3 text-start">
-              <input onChange={handleChanges} type="radio" name="GivngBirthStatu" value='بعد الوضع جيدة' />
-            </div>
-            <label className="col-md-3 text-end fw-bold">بعد الوضع جيدة</label>
+      <form method="POST" className='my-5 container px-4 ' onSubmit={handleUpdate} >
+          <div className="my-3">
+              <h3 className="fs-2 text-secondary">تاريخ الدخول</h3>
+              <div className="row my-4">
+                  <label className="col-md-2 col-form-label fw-bold">التاريخ</label>
+                  <div className="col-md-4">
+                      <input type="date" onChange={onChange} value={moment(pData.dateCheckIn).utc().add(1, 'days').format('YYYY-MM-DD')}   className="form-control border-primary" name='dateCheckIn'/>
+                  </div>
+                  <label className="col-md-2 col-form-label fw-bold">الساعة</label>
+                  <div className="col-md-4">
+                      <input type="time" onChange={onChange} value={pData.timeCheckIn}  className="form-control border-primary" name='timeCheckIn'/>
+                  </div>
+              </div>
+                      
           </div>
-        </div>
+          <div className='my-3'>
+                <h3 className="fs-2 text-secondary" >حالة الحمل</h3>
+                <div className="row my-3">
+                <label className="col-md-3 form-label fw-bold text-end" >قبل الوضع </label>
+                    <div className="col-md-3  ">
+                        <input name="GivngBirthStatuBefore" onChange={onChange} placeholder={pData.GBSBefore} type="text" className="form-control border-primary rounded" />
+                    </div>
+                    <label className="col-md-3 text-end fw-bold" >بعد الوضع </label>
+                    <div className="col-md-3 ">
+                        <input className="border-primary form-control " onChange={onChange}  type="text" name="GivngBirthStatuAfter" placeholder={pData.GBSAfter}  />
+                        
+                    </div>
+                
+                </div>
+                
+            </div>
 
-        <PersonInfo
-          title='هوية المرأة'
-          father=''
-          type={'date'}
-          label={'التاريخ المحتمل للوضع'}
-          name={'possibleDayBirth'}
-          onChange={handleChanges}
-          pData={pData}
-        />
+              <div className='my-3'>
+                  
+                  <h3 className="fs-2 text-secondary">هوية المرأة</h3>
+                  <div className="row my-3">
+                      {
+                          inputsDetail.map((input, index)=>(
+                              <div key={index} className='col-6'>
+                              <div className="row p-0 m-0">
+                                      
+                                      <label key={index} htmlFor={input.name} className="col-4 col-form-label fw-bold  my-3">{input.label}</label>
+                                      <div className="col-8" >
+                                          <input onChange={onChange} value={input.value} type={input.type} className="form-control border-primary my-3" id={input.name} name={input.name} required />
+                                      </div>
+                                      
+                                  </div>
+                              </div >
+                          ))
+                      }
+                  </div>
 
-        <div className='my-3'>
-          <h3 className="fs-2 text-secondary">عدد الولادات </h3>
+              </div>
+              <div className='my-3'>
+                <h3 className="fs-2 text-secondary">عدد الولادات </h3>
+                <div className="my-3 row">
+                    <label htmlFor="NumberOfPregnancies" className="col-md-2 col-form-label fw-bold ">عدد مرات الحمل</label>
+                    <div className="col-md-4">
+                        <input onChange={onChange} value={pData.NumberOfPregnancies} type="number" min='0' name='NumberOfPregnancies' className="border-primary rounded form-control " />
+                    </div>
+                    <label htmlFor="numberLiveChildren" className="col-md-2 col-form-label fw-bold ">عدد الأطفال الأحياء</label>
+                    <div className="col-md-4">
+                        <input onChange={onChange} value={pData.numberLiveChildren} type="number" min='0' name='numberLiveChildren' className="border-primary rounded form-control" />
+                    </div>
+                </div>
+                
+            </div>
+
+          <div className='row my-3'>
+              <label className="col-md-2 col-form-label fw-bold">
+                  المستوى الدراسي
+              </label>
+              <div className="col-md-10">
+                  <select onChange={onChange} value={
+                      pData.academicLevel === 'أمية' ? 'أمية' :
+                      pData.academicLevel === 'ابتدائي' ? 'ابتدائي' :
+                      pData.academicLevel === 'إعدادي' ? 'إعدادي' :
+                      pData.academicLevel === 'ثانوي' ? 'ثانوي' :
+                      pData.academicLevel === 'أخر' ? 'أخر' : 'DEFAULT'
+
+                  } name='academicLevel' className="border-primary rounded col-md-12">
+                  
+                      <option value="DEFAULT" disabled >اختر المستوى الدراسي</option>
+                      <option value="أمية" >أمية</option>
+                      <option value="ابتدائي">ابتدائي</option>
+                      <option value="إعدادي">إعدادي</option>
+                      <option value="ثانوي">ثانوي</option>
+                      <option value="أخر">أخر</option>
+                  </select>
+              </div>
+          </div>
+          <div className='my-3'>
           <div className="my-3 row">
-            <label htmlFor="NumberOfPregnancies" className="col-md-2 col-form-label fw-bold">عدد مرات الحمل</label>
-            <div className="col-md-4">
-              <input onChange={handleChanges} type="number" min='0' name='NumberOfPregnancies' className="border-primary rounded form-control" value={pData.NumberOfPregnancies} />
-            </div>
-            <label htmlFor="numberLiveChildren" className="col-md-2 col-form-label fw-bold">عدد الأطفال الأحياء</label>
-            <div className="col-md-4">
-              <input onChange={handleChanges} type="number" min='0' name='numberLiveChildren' className="border-primary rounded form-control" value={pData.numberLiveChildren} />
-            </div>
+                  <label htmlFor="fatherName" className="col-md-2 col-form-label fw-bold">اسم الزوج</label>
+                  <div className="col-md-4">
+                      <input onChange={onChange} value={pData.fatherName} type="text" className="form-control border-primary rounded" id="fatherName" name='fatherName'/>
+                  </div>
+                  <label htmlFor="fatherJob" className="col-md-2 col-form-label fw-bold">مهنة الزوج</label>
+                  <div className="col-md-4">
+                      <input onChange={onChange} value={pData.fatherJob}  type="text" className="form-control border-primary rounded" id="fatherJob" name='fatherJob'/>
+                  </div>
+              </div>
           </div>
-        </div>
+          {/* Transport  */}
+          <div>
+      <div className='my-3'>
+              
+              <div className="my-3 row">
+                  <label htmlFor="transport" className="col-md-2 col-form-label fw-bold">وسيلة النقل المستعملة</label>
+                  <div className="col-md-10">
+                      
+                          <select value={
+                              pData.transport==="سيارة الإسعاف لدار الأمومة"
+                              ? "سيارة الإسعاف لدار الأمومة"
+                              : pData.transport==="وسيلة نقل خاصة"
+                              ? "وسيلة نقل خاصة"
+                              : pData.transport==="سيارة الإسعاف خاصة"
+                              ? "سيارة الإسعاف خاصة"
+                              : pData.transport==="أخر"
+                              ? "أخر": 
+                              "DEFAULT"
+                          } onChange={onChange} name='transport' className="border-primary rounded px-5 col-12">
+                              <option value="DEFAULT" disabled selected>اختر وسيلة النقل</option>
 
-        {/* Study Level */}
-        <StudyLevel onChange={handleChanges} value={pData.academicLevel} />
-
-        {/* Husband */}
-        <Husband onChange={handleChanges} value={pData.fatherName} />
-
-        {/* Transport */}
-        <Transport onChange={handleChanges} value={pData.transport} />
-
-        {/* Decision To Come */}
-        <DecisionToCome onChange={handleChanges} value={pData.decisionToCome} />
-
-        {/* Accompany */}
-        <Accompany onChange={handleChanges} value={pData.accompany} />
-
-        <div className="my-3">
-          <h3 className="fs-2 text-secondary">الوضع</h3>
-          <div className="my-3 row">
-            <select onChange={handleChanges} name="givenBirthLocation" className="col-12 rounded border-primary my-3" value={pData.givenBirthLocation}>
-              {
-                givenBirth.map((item, index) => (
-                  <option key={index} value={item.value}>{item.label}</option>
-                ))
-              }
-            </select>
+                              {
+                                  transport.map((option,index) =>(
+                                      <option key={index} value={option.value}>{option.label}</option>
+                                  ))
+                              }
+                              
+                          </select>
+                  </div>
+              </div>
           </div>
-        </div>
+          <div className="my-4">
+              <h3 className="fs-2 text-secondary">المسافة المقطوعة / المدة بالساعة</h3>
+              <div className="my-4 row">
+              <label htmlFor="road" className="col-md-2 col-form-label fw-bold">طريق معبدة</label>
+              <div className="col-md-3">
+                  <input onChange={onChange} value={pData.road} type="number" min='0' name='road'  className='ms-1 border-primary rounded form-control '/>كلم
+              </div>            
+              <label htmlFor="passage" className="col-md-2 col-form-label fw-bold">مسلك</label>
+              <div className="col-md-3">
+                  <input onChange={onChange} value={pData.passage} type="number" min='0' name='passage'  className='ms-1 border-primary rounded form-control'/>كلم
+              </div>            
+              </div>
+          </div>
+  </div>
+          {/* End Transport  */}
+          <div className="my-3">
+              <h3 className="fs-2 text-secondary">قرار المجيء إلى دار الأمومة</h3>
+              <select value={
+                  pData.decisionToCome==="المرأة"
+                  ? "المرأة"
+                  : pData.decisionToCome==="الزوج"
+                  ? "الزوج"
+                  : pData.decisionToCome==="مولدة تقليدية"
+                  ?"مولدة تقليدية"
+                  : pData.decisionToCome==="مؤسسة صحية"
+                  ?"مؤسسة صحية"
+                  : pData.decisionToCome==="أخر"
+                  ?"أخر":'DEFAULT'
+              } onChange={onChange} name="decisionToCome" className='col-12 rounded border-primary my-3' >
+                  <option value="DEFAULT" disabled selected>اختر واحدة</option>
 
-        <ReturnToCenter onChange={handleChanges} value={pData.dateBack} />
+                  {
+                      options.map((option,index) =>(
+                          <option key={index} value={option.value}>{option.label}</option>
+                      ))
+                  }
+              </select>
+              
+          </div>
+      
+          <div>
+          <div className="my-3">
+                  <h3 className="fs-2 text-secondary">الشخص المرافق</h3>
+                  <select value={
+                      pData.accompany==="الزوج"
+                      ?"الزوج"
+                      : pData.accompany==="الأم"
+                      ?"الأم"
+                      : pData.accompany==="الأخت"
+                      ?"الأخت"
+                      : pData.accompany==="أم الزوج"
+                      ?"أم الزوج"
+                      : pData.accompany==="أخر"
+                      ?"أخر":'DEFAULT'
+                  } onChange={onChange} name='accompany' className="col-12 rounded border-primary my-3" >
+                      <option value="DEFAULT" disabled selected>اختر واحدة</option>
 
-        <CheckInOut onChange={handleChanges} title='الخروج' date='dateCheckOut' time='timeCheckOut' value={pData.dateCheckOut} />
+                      {
+                          accompany.map((acc,index) =>(
+                              <option key={index} value={acc} >{acc}</option>
 
-        <DurationOfStay onChange={handleChanges} value={pData.DurationOfStay} />
+                          ))
+                      }
+                  </select>
 
-        <div className="row">
-          <button className="btn btn-dark mb-5 mt-4 col-6 m-auto fs-4" type="submit">حفظ <FontAwesomeIcon className="fs-4" icon={faArrowLeft} /></button>
-        </div>
+              </div>
+          </div>
+          <div className="my-3">
+                <h3 className="fs-2 text-secondary">الوضع</h3>
+                <div className="my-3 row">
+                    <select onChange={onChange} value={pData.givenBirthLocation} name="givenBirthLocation" className="col-12 rounded border-primary my-3">
+                        {
+                            givenBirth.map((item,index) =>(
+                                <option key={index} value={item.value}>{item.label}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+            </div>
+          <div className="my-3">
+              <h3  className="fs-2 text-secondary">الرجوع إلى دار الأمومة</h3>
+              <div className="row my-3">
+                  <label className="col-md-2 col-form-label fw-bold">التاريخ</label>
+                  <div className="col-md-4">
+                      <input onChange={onChange} 
+                      value={
+                          moment(pData.dateBack).utc().add(1, 'days').format("YYYY-MM-DD")
+                      }
+                      type="date"   className="form-control border-primary" name='dateBack'/>
+                  </div>
+                  <label className="col-md-2 col-form-label fw-bold">الساعة</label>
+                  <div className="col-md-4">
+                      <input onChange={onChange} 
+                      value={pData.timeBack}
+                      type="time"   className="form-control border-primary" name='timeBack'/>
+                  </div>
+              </div>
+              
+          </div>      
+          <div className="my-3">
+              <h3 className="fs-2 text-secondary">الخروج</h3>
+              <div className="row my-4">
+                  <label className="col-md-2 col-form-label fw-bold">التاريخ</label>
+                  <div className="col-md-4">
+                      <input type="date" 
+                      value={moment(pData.dateCheckOut).utc().add(1, 'days').format("YYYY-MM-DD")}
+                      onChange={onChange}   className="form-control border-primary" name='dateCheckOut'/>
+                  </div>
+                  <label className="col-md-2 col-form-label fw-bold">الساعة</label>
+                  <div className="col-md-4">
+                      <input
+                      value={pData.timeCheckOut} 
+                      type="time" 
+                      onChange={onChange}  className="form-control border-primary" name='timeCheckOut'/>
+                  </div>
+              </div>
+                      
+          </div>
+          <div className="my-3">
+              <h3 className="fs-2 text-secondary">مدة الإقامة</h3>
+              <div className="row my-3">
+                  <div className="col-md-12">
+                      <input onChange={onChange}
+                      value={pData.DurationOfStay}
+                       type="number" min='0'  className="form-control col-12 border-primary " name='DurationOfStay'/>
+                  </div>
+                  
+              </div>
+              
+          </div>            
+          <div className="row">
+              <button  className="btn btn-dark mb-5 mt-4 col-6 m-auto fs-4">حفظ </button>
+          </div>
       </form>
-    </div>
+  </div>
   );
 }
 
